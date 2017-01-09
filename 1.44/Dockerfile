@@ -15,7 +15,9 @@ ENV APPS=/software/applications
 ENV DEST=$APPS/$APP_NAME/
 ENV PATH=$APPS/$APP_NAME/$VERSION/bin:$PATH
 
-RUN yum install -y zlib-devel ; \
+RUN yum install -y \ 
+      mariadb \
+      zlib-devel ; \
     yum clean all ; \
     # sparsehash ####
     git clone https://github.com/sparsehash/sparsehash ; \
