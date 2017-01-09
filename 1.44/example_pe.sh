@@ -1,14 +1,16 @@
 #!/bin/bash
 
 # docker run --name mariadb-for-stacks -e MYSQL_ROOT_PASSWORD=stacks -d mariadb:5.5
-# docker run --name stacks  --link mariadb-for-stacks:mysql -it bigr.bios.cf.ac.uk:4567/comics/stacks:1.44 bash $PWD/example_pe.sh 
+# MYSQL_HOST=$(docker inspect  --format '{{ .NetworkSettings.IPAddress }}' mariadb-for-stacks)
+# docker run --name stacks  --link mariadb-for-stacks:mysql -it -e MYSQL_HOST="$MYSQL_HOST" -e MYSQL_PWD=stacks bigr.bios.cf.ac.uk:4567/comics/stacks:1.44 bash $PWD/example_pe.sh 
 
 mkdir tutorial_pe
 cd tutorial_pe
-#mkdir assembled  paired  raw  stacks
+#mkdir assembled  paired  raw  stacks samples
 #curl -L -o pe_samples.tar.gz http://catchenlab.life.illinois.edu/stacks/pe_tutorial/pe_samples.tar.gz 
-#tar xzf pe_samples.tar.gz
-#mv pe_samples samples
+#cd samples
+#tar xzf ../pe_samples.tar.gz
+#cd ../
 #rm -f pe_samples.tar.gz
 
 mysql -pstacks -e "CREATE DATABASE pe_radtags"
