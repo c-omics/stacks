@@ -17,6 +17,9 @@ ENV PATH=$APPS/$APP_NAME/$VERSION/bin:$PATH
 
 RUN yum install -y \ 
       mariadb \
+      perl-DBD-MySQL \
+      perl-DBI \
+      perl-Spreadsheet-WriteExcel \
       zlib-devel ; \
     yum clean all ; \
     # sparsehash ####
