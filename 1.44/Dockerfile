@@ -54,6 +54,7 @@ RUN yum install -y \
     sed -i "s/\(^\$db_user\).*/\1 = \"root\";/" $DEST/$VERSION/share/stacks/php/constants.php ; \
     sed -i "s/\(password=\).*/\1stacks/" /root/.my.cnf ; \
     sed -i "s/\(^\$db_pass\).*/\1 = \"stacks\";/" $DEST/$VERSION/share/stacks/php/constants.php ; \
+    chown -R apache:apache $DEST/$VERSION/share/stacks/php ; \
     cd ../ ; \
     rm -rf stacks-$VERSION.tar.gz stacks-$VERSION
 
