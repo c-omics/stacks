@@ -11,7 +11,11 @@ cd tutorial_pe
 #cd samples
 #tar xzf ../pe_samples.tar.gz
 #cd ../
-#rm -f pe_samples.tar.gz
+
+cp -a /software/applications/stacks/1.44/share/stacks/sql/mysql.cnf.dist /root/.my.cnf
+sed -i "s/\(user=\).*/\1root/" /root/.my.cnf
+sed -i "s/\(password=\).*/\1stacks/" /root/.my.cnf
+sed -i "s/\(host=\).*/\1$MYSQL_HOST/" /root/.my.cnf
 
 mysql -pstacks -e "CREATE DATABASE pe_radtags"
 mysql -pstacks pe_radtags < /usr/local/share/stacks/sql/stacks.sql
@@ -21,12 +25,16 @@ denovo_map.pl -m 3 -M 3 -T 15 -B pe_radtags -b 1 -t \
   -o ./stacks \
   -p ./samples/f0_male.1.fq \
   -p ./samples/f0_female.1.fq
+#ls stacks
+
 
 # Collating and assembling paired-end reads
 export_sql.pl -D pe_radtags -b 1 -a haplo -f haplotypes.tsv -o tsv -F snps_l=1
+# ls
 cut -f 1 haplotypes.tsv > whitelist.tsv
+# ls
 sort_read_pairs.pl -p ./stacks/ -s ./samples/ -o ./paired/ -w whitelist.tsv
-
+# ls paired
 exec_velvet.pl -s ./paired/ -o ./assembled/ -c -e /usr/local/bin -M 200
 
 # Importing contigs into the database
