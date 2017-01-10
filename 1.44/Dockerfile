@@ -16,6 +16,7 @@ ENV DEST=$APPS/$APP_NAME/
 ENV PATH=$APPS/$APP_NAME/$VERSION/bin:$PATH
 
 RUN yum install -y \ 
+      httpd \
       mariadb \
       perl-DBD-MySQL \
       perl-DBI \
@@ -45,8 +46,17 @@ RUN yum install -y \
     ./configure --enable-sparsehash --prefix=$DEST/$VERSION ; \
     make ; \
     make install ; \
+    mv $DEST/$VERSION/share/stacks/php/constants.php.dist $DEST/$VERSION/share/stacks/php/constants.php ; \
+    mv $DEST/$VERSION/share/stacks/sql/mysql.cnf.dist /root/.my.cnf ; \
+    sed -i "s/\(^user=\).*/\1root/" /root/.my.cnf ; \
+    sed -i "s/\(^\$db_user\).*/\1 = \"root\"/" $DEST/$VERSION/share/stacks/php/constants.php ; \
+    sed -i "s/\(password=\).*/\1stacks/" /root/.my.cnf ; \
+    sed -i "s/\(^\$db_pass\).*/\1 = \"stacks\"/" $DEST/$VERSION/share/stacks/php/constants.php ; \
     cd ../ ; \
     rm -rf stacks-$VERSION.tar.gz stacks-$VERSION
 
-CMD ["/bin/bash"]
+COPY stacks.conf /etc/httpd/conf.d/stacks.conf
+COPY stacks_entrypoint.sh /usr/local/bin/stacks_entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/stacks_entrypoint.sh"]
+
 
