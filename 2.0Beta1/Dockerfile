@@ -33,17 +33,6 @@ RUN yum install -y \
       zlib-devel ; \
     yum clean all ; \
     rm -rf /var/cache/yum ; \
-    # gcc 
-    curl -LO ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-7.2.0/gcc-7.2.0.tar.gz ; \
-    tar xzf gcc-7.2.0.tar.gz ; \
-    cd gcc-7.2.0 ; \
-    ./configure --prefix=/usr/local --enable-languages=c,c++,fortran --disable-multilib ; \
-    make -j ; \
-    make install ; \
-    echo /usr/local/lib64 >> /etc/ld.so.conf.d/gcc-7.2.0.conf ; \
-    ldconfig ; \
-    cd ../ ; \
-    rm -rf gcc-7.2.0 ; \
     # sparsehash ####
     git clone https://github.com/sparsehash/sparsehash ; \
     cd sparsehash ; \
@@ -64,6 +53,13 @@ RUN yum install -y \
     cp LICENSE.txt /usr/share/licenses/velvet/ ; \
     cd ../ ; \
     rm -rf velvet ; \
+    # pre-built gcc 
+    curl -LO http://gfortran.meteodat.ch/download/x86_64/releases/gcc-7.1.0.tar.xz ; \
+    tar xaf gcc-7.1.0.tar.xz ; \
+    cp -a gcc-7.1.0/* /usr/local/ ; \
+    echo /usr/local/lib64 >> /etc/ld.so.conf.d/gcc-7.2.0.conf ; \
+    ldconfig ; \
+    rm -rf gcc-7.1.0 ; \
     # stacks #########
     curl -L -o stacks-$VERSION.tar.gz http://catchenlab.life.illinois.edu/stacks/source/stacks-$VERSION.tar.gz ; \
     tar xzf stacks-$VERSION.tar.gz ; \
