@@ -1,6 +1,7 @@
 
 
-subdirs = 1.44
+subdirs = 1.44 \
+          2.0Beta1
 
 LATEST=1.44
 
