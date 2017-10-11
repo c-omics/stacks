@@ -31,6 +31,10 @@ RUN yum install -y \
       perl-Spreadsheet-WriteExcel \
       php-mysqlnd \
       zlib-devel ; \
+    # a more up-to-dae-gcc
+    yum install -y centos-release-scl-rh ; \
+    yum install -y devtoolset-7-gcc* ; \
+    source /opt/rh/devtoolset-7/enable ; \
     yum clean all ; \
     rm -rf /var/cache/yum ; \
     # sparsehash ####
@@ -53,13 +57,6 @@ RUN yum install -y \
     cp LICENSE.txt /usr/share/licenses/velvet/ ; \
     cd ../ ; \
     rm -rf velvet ; \
-    # pre-built gcc 
-    curl -LO http://gfortran.meteodat.ch/download/x86_64/releases/gcc-7.1.0.tar.xz ; \
-    tar xaf gcc-7.1.0.tar.xz ; \
-    cp -a gcc-7.1.0/* /usr/local/ ; \
-    echo /usr/local/lib64 >> /etc/ld.so.conf.d/gcc-7.2.0.conf ; \
-    ldconfig ; \
-    rm -rf gcc-7.1.0 ; \
     # stacks #########
     curl -L -o stacks-$VERSION.tar.gz http://catchenlab.life.illinois.edu/stacks/source/stacks-$VERSION.tar.gz ; \
     tar xzf stacks-$VERSION.tar.gz ; \
