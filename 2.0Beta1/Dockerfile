@@ -67,7 +67,7 @@ RUN yum install -y \
     curl -L -o stacks-$VERSION.tar.gz http://catchenlab.life.illinois.edu/stacks/source/stacks-$VERSION.tar.gz ; \
     tar xzf stacks-$VERSION.tar.gz ; \
     cd stacks-$VERSION ; \
-    ./configure --enable-sparsehash --prefix=$DEST/$VERSION ; \
+    ./configure --prefix=$DEST/$VERSION ; \
     make ; \
     make install ; \
     mkdir -p  /usr/share/licenses/stacks-$VERSION ; \
