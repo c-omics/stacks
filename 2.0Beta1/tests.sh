@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# docker run -i comics/samtools:1.3.1 bash < tests.sh
+# docker run -i comics/stacks:2.0Beta1 bash < tests.sh
 #
 
 echo "no tests defined"

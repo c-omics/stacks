@@ -2,7 +2,7 @@
 
 # docker run --name mariadb-for-stacks -e MYSQL_ROOT_PASSWORD=stacks -d mariadb:5.5
 # MYSQL_HOST=$(docker inspect  --format '{{ .NetworkSettings.IPAddress }}' mariadb-for-stacks)
-# docker run --name stacks --link mariadb-for-stacks:mysql -it -v $PWD:$PWD -p 8080:80 -e MYSQL_HOST="$MYSQL_HOST" -e MYSQL_USER=root -e MYSQL_PWD=stacks comics/stacks:1.44 bash $PWD/example_pe.sh 
+# docker run --name stacks --link mariadb-for-stacks:mysql -it -v $PWD:$PWD -p 8080:80 -e MYSQL_HOST="$MYSQL_HOST" -e MYSQL_USER=root -e MYSQL_PWD=stacks comics/stacks:2.0Beta1 bash $PWD/example_pe.sh 
 
 mkdir tutorial_pe
 cd tutorial_pe
@@ -12,13 +12,13 @@ cd samples
 tar xzf ../pe_samples.tar.gz
 cd ../
 
-#cp -a /software/applications/stacks/1.44/share/stacks/sql/mysql.cnf.dist /root/.my.cnf
+#cp -a /software/applications/stacks/2.0Beta1/share/stacks/sql/mysql.cnf.dist /root/.my.cnf
 #sed -i "s/\(user=\).*/\1root/" /root/.my.cnf
 #sed -i "s/\(password=\).*/\1stacks/" /root/.my.cnf
 #sed -i "s/\(host=\).*/\1$MYSQL_HOST/" /root/.my.cnf
 
 mysql -pstacks -e "CREATE DATABASE pe_radtags"
-mysql -pstacks pe_radtags < /software/applications/stacks/1.44/share/stacks/sql/stacks.sql
+mysql -pstacks pe_radtags < /software/applications/stacks/2.0Beta1/share/stacks/sql/stacks.sql
 
 denovo_map.pl -m 3 -M 3 -T 15 -B pe_radtags -b 1 -t \
   -D "Tutorial Paired-end RAD-Tags" \

@@ -66,8 +66,8 @@ RUN yum install -y \
     make install ; \
     mkdir -p  /usr/share/licenses/stacks-$VERSION ; \
     cp LICENSE /usr/share/licenses/stacks-$VERSION/ ; \
-    mv $DEST/$VERSION/share/stacks/php/constants.php.dist $DEST/$VERSION/share/stacks/php/constants.php ; \
-    mv $DEST/$VERSION/share/stacks/sql/mysql.cnf.dist /root/.my.cnf ; \
+    cp $DEST/$VERSION/share/stacks/php/constants.php.dist $DEST/$VERSION/share/stacks/php/constants.php ; \
+    cp $DEST/$VERSION/share/stacks/sql/mysql.cnf.dist /root/.my.cnf ; \
     sed -i "s/\(^user=\).*/\1root/" /root/.my.cnf ; \
     sed -i "s/\(^\$db_user\).*/\1 = \"root\";/" $DEST/$VERSION/share/stacks/php/constants.php ; \
     sed -i "s/\(password=\).*/\1stacks/" /root/.my.cnf ; \
