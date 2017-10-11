@@ -27,6 +27,7 @@ RUN yum install -y \
       mpfr-devel \
       perl-DBD-MySQL \
       perl-DBI \
+      perl-File-Which \
       perl-Spreadsheet-WriteExcel \
       php-mysqlnd \
       zlib-devel ; \
