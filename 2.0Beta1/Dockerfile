@@ -1,4 +1,4 @@
-FROM comics/centos
+FROM comics/samtools:1.3.1
 MAINTAINER Ian Merrick <MerrickI@Cardiff.ac.uk>
 
 ##############################################################
