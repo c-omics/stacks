@@ -46,4 +46,5 @@ deploy_app:
      git push -u origin master && 
      cd .. && 
      rm -rf $PROJECT_NAME
+   - 'curl  -H "Content-Type: application/json" --data "{build: true}" -X POST https://registry.hub.docker.com/u/comics/${PROJECT_NAME}/trigger/${DOCKER_TRIGGER_TOKEN}/'
 
